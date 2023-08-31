@@ -1,10 +1,11 @@
 import React, { memo, useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-
+import { Button } from "@mui/material";
 import { HomeWrapper } from "./style";
 import HomeBanner from "./c-cpns/home-banner";
 import { fetchHomeDataAction } from "@/store/modules/home";
 import SectionHeader from "@/components/section-header";
+import RoomItem from "@/components/room_item";
 
 const Home = memo(() => {
     /** 从redux中获取数据 */
@@ -26,14 +27,17 @@ const Home = memo(() => {
             <div className="content">
                 <div className="good-price">
                     <SectionHeader title={goodPriceInfo.title} />
-
-                    <ul>
-                        {goodPriceInfo.list.map((item) => {
-                            return <li key={item.id}>{item.name}</li>;
+                    <ul className="room-list">
+                        {/* 只展示前8条数据 */}
+                        {goodPriceInfo.list?.slice(0, 8).map((item) => {
+                            return <RoomItem itemData={item} key={item.id} />;
                         })}
                     </ul>
                 </div>
             </div>
+            <Button variant="text">Text</Button>
+            <Button variant="contained">Contained</Button>
+            <Button variant="outlined">Outlined</Button>
         </HomeWrapper>
     );
 });
