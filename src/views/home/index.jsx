@@ -6,19 +6,22 @@ import HomeBanner from "./c-cpns/home-banner";
 import { fetchHomeDataAction } from "@/store/modules/home";
 
 import HomeSectionV1 from "./c-cpns/home-section-v1";
-import SectionHeader from "@/components/section-header";
-import SectionRooms from "@/components/section-rooms";
+import HomeSectionV2 from "./c-cpns/home-section-v2";
+import { isEmptyO } from "@/utils";
 
 const Home = memo(() => {
     /** 从redux中获取数据 */
-    const { goodPriceInfo, highScoreInfo, discountInfo } = useSelector(
-        (state) => ({
-            goodPriceInfo: state.home.goodPriceInfo,
-            highScoreInfo: state.home.highScoreInfo,
-            discountInfo: state.home.discountInfo,
-        }),
-        shallowEqual
-    );
+    const { goodPriceInfo, highScoreInfo, discountInfo, recommendInfo } =
+        useSelector(
+            (state) => ({
+                goodPriceInfo: state.home.goodPriceInfo,
+                highScoreInfo: state.home.highScoreInfo,
+                discountInfo: state.home.discountInfo,
+                recommendInfo: state.home.recommendInfo,
+            }),
+            shallowEqual
+        );
+
     /** 派发异步的事件: 发送网络请求 */
     const dispatch = useDispatch();
     useEffect(() => {
@@ -29,30 +32,34 @@ const Home = memo(() => {
         <HomeWrapper>
             <HomeBanner />
             <div className="content">
-                {/* <div className="good-price">
-                    <SectionHeader title={goodPriceInfo.title} />
-                    <SectionRooms roomList={goodPriceInfo.list} />
-                </div>
-                <div className="high-score">
-                    <SectionHeader
-                        title={highScoreInfo.title}
-                        subtitle={highScoreInfo?.subtitle}
-                    />
-                    <SectionRooms roomList={highScoreInfo?.list} />
-                </div> */}
                 {/* 折扣数据 */}
-                <div className="discount">
+                {/* <div className="discount">
                     <SectionHeader
                         title={discountInfo.title}
                         subtitle={discountInfo.subtitle}
                     />
+                    <SectionTabs
+                        tabNames={tabNames}
+                        tabClick={tabClickHandle}
+                    />
                     <SectionRooms
-                        roomList={discountInfo.dest_list?.["成都"]}
+                        roomList={discountInfo.dest_list?.[name]}
                         itemWidth="33.3333%"
                     />
-                </div>
-                <HomeSectionV1 infoData={goodPriceInfo} />
-                <HomeSectionV1 infoData={highScoreInfo} />
+                </div> */}
+                {/* 当discountInfo不为空的时候再进行渲染 */}
+                {isEmptyO(discountInfo) && (
+                    <HomeSectionV2 infoData={discountInfo} />
+                )}
+                {isEmptyO(recommendInfo) && (
+                    <HomeSectionV2 infoData={recommendInfo} />
+                )}
+                {isEmptyO(goodPriceInfo) && (
+                    <HomeSectionV1 infoData={goodPriceInfo} />
+                )}{" "}
+                {isEmptyO(highScoreInfo) && (
+                    <HomeSectionV1 infoData={highScoreInfo} />
+                )}
             </div>
         </HomeWrapper>
     );
