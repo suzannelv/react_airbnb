@@ -1,7 +1,14 @@
 import React, { memo } from "react";
+import { EntireWrapper } from "./style";
 
 const Entire = memo(() => {
-    return <div>Entire</div>;
+    return (
+        <EntireWrapper>
+            <div className="filter">filter</div>
+            <div className="rooms">rooms</div>
+            <div className="pagination">pagination</div>
+        </EntireWrapper>
+    );
 });
 
 export default Entire;
