@@ -79,7 +79,7 @@ export const ItemWrapper = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 20%;
+            width: 14.29%;
         }
         .dot {
             width: 6px;
@@ -89,6 +89,7 @@ export const ItemWrapper = styled.div`
             &.active {
                 width: 8px;
                 height: 8px;
+                background-color: red;
             }
         }
     }

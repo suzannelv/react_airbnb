@@ -1,8 +1,10 @@
 import RoomItem from "@/components/room-item";
 import { RoomsWrapper } from "./style";
 
-import React, { memo } from "react";
-import { shallowEqual, useSelector } from "react-redux";
+import React, { memo, useCallback } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { changeDetailInfoAction } from "@/store/modules/detail";
 
 const EntireRooms = memo(() => {
     // redux roomList
@@ -14,7 +16,17 @@ const EntireRooms = memo(() => {
         }),
         shallowEqual
     );
-
+    // 事件处理
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const itemClickHandle = useCallback(
+        (item) => {
+            // 在redux中保存点击的item数据
+            dispatch(changeDetailInfoAction(item));
+            navigate("/detail");
+        },
+        [navigate, dispatch]
+    );
     return (
         <RoomsWrapper>
             <h2 className="title">共{totalCount}多处住所</h2>
@@ -25,6 +37,7 @@ const EntireRooms = memo(() => {
                             itemData={item}
                             itemWidth="20%"
                             key={item._id}
+                            itemClick={itemClickHandle}
                         />
                     );
                 })}
