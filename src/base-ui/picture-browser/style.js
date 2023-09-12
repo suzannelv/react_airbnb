@@ -23,6 +23,7 @@ export const BrowserWrapper = styled.div`
         }
     }
     .slider {
+        position: relative;
         flex: 1;
         display: flex;
         justify-content: center;
@@ -33,6 +34,7 @@ export const BrowserWrapper = styled.div`
             left: 0;
             right: 0;
             top: 0;
+            bottom: 0;
             display: flex;
             justify-content: space-between;
             bottom: 0;
@@ -63,6 +65,25 @@ export const BrowserWrapper = styled.div`
                 height: 100%;
                 user-select: none;
             }
+            /* animation */
+            .pic-enter {
+                transform: translateX(
+                    ${(props) => (props.isNext ? "100%" : "-100%")}
+                );
+                opacity: 0;
+            }
+            .pic-enter-active {
+                transform: translate(0);
+                opacity: 1;
+                transition: all 200ms ease;
+            }
+            .pic-exit {
+                opacity: 1;
+            }
+            .pic-exit-active {
+                opacity: 0;
+                transition: all 200ms ease;
+            }
         }
     }
     .preview {
@@ -70,6 +91,34 @@ export const BrowserWrapper = styled.div`
         justify-content: center;
         height: 100px;
         margin-top: 10px;
-        background-color: green;
+        .info {
+            position: absolute;
+            bottom: 10px;
+            max-width: 105vh;
+            color: #fff;
+            .desc {
+                display: flex;
+                justify-content: space-between;
+            }
+            .list {
+                /* margin-top: 30px; */
+                overflow: hidden;
+                transition: height 300ms ease;
+                height: ${(props) => (props.showList ? "67px" : "0")};
+                .item {
+                    margin-right: 15px;
+                    cursor: pointer;
+                    img {
+                        height: 67px;
+                        opacity: 0.5;
+                    }
+                    &.active {
+                        img {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
     }
 `;
