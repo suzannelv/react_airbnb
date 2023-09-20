@@ -1,4 +1,4 @@
-import { TabsWrapper } from "@/components/section-tabs/style";
+import { TabsWrapper } from "./style";
 import classNames from "classnames";
 
 import PropTypes from "prop-types";
